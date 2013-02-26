@@ -57,3 +57,8 @@ Usage:
              //yql object is available and ready to use
              console.log(yql)
     });
+
+DEMOS
+-----
+
+   (http://thinkphp.ro/apps/js-hacks/frameworks/cui2/)[http://thinkphp.ro/apps/js-hacks/frameworks/cui2/]
