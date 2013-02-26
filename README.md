@@ -8,3 +8,52 @@ distinct pieces of functionality stored in modules. As you probably know, loose 
 by removing dependencies where possible.
 
 
+Usage:
+------
+
+    define("core", [], function(){
+
+                  return {x: 11, y: 33 }
+    });
+
+
+    define("dom", [], function(){
+
+                  return {a: 1, b: 2 }
+    });
+
+
+    define("event", [], function(){
+
+                  return {b: 3, b: 5 }
+    });
+
+
+    define("jsonp",[], function(){
+
+                  return {c: 7, d: 8 }
+    });
+
+    define("yql",[], function(){
+
+                  return {e: 100, f: 200 }
+    });
+
+
+    require(["core","dom","event","jsonp"], function(core, dom, event, jsonp, yql){
+
+             //core object is available and ready to use
+             console.log(core)
+
+             //dom object is available and ready to use
+             console.log(dom)
+
+             //event object is available and ready to use
+             console.log(event)
+
+             //jsonp object is available and ready to use
+             console.log(jsonp)
+
+             //yql object is available and ready to use
+             console.log(yql)
+    });
