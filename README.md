@@ -61,4 +61,4 @@ Usage:
 DEMOS
 -----
 
-   (http://thinkphp.ro/apps/js-hacks/frameworks/cui2/)[http://thinkphp.ro/apps/js-hacks/frameworks/cui2/]
+   * [http://thinkphp.ro/apps/js-hacks/frameworks/cui2/](http://thinkphp.ro/apps/js-hacks/frameworks/cui2/)
