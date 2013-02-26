@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+   <title>AMD Style</title>
+   <link rel="stylesheet" href="css/lastfm.css" type="text/css">
+   <script type="text/javascript" src="../amd.js"></script>
+</head>
+<body>
+
+           <div id="lastFM" class="lastFM">
+                <a href="http://last.fm/user/yelf">Recently Listened Tracks</a> 
+                <div id="result">Loading...</div>
+           </div>
+
+<script type="text/javascript">
+
+    require(["cui","dom","event","yql"], function( cui, dom, event, Y ) {
+
+      var lastfm = function() {
+
+          var user = 'thinkphp',
+
+              url;              
+         
+          function init() {
+
+              var href = dom.select("#lastFM a").toString().split("/");
+
+              var username = href[href.length-1] || user;
+
+              url = 'use "http://thinkphp.ro/apps/lastfm/YQL-open-data-table/recentlastfm.xml" as lastfm;select * from lastfm where username="'+ username +'" and api_key="2993c6e15c91a2890c2f11fa95673067"';
+  
+             return this;
+          }
+
+          function and() {
+
+             return this;
+          }
+
+          function render() {
+
+                Y.yql(url, function( data ){
+
+                    dom.select("#result").html( data.query.results.result ) 
+                })       
+          }
+
+          return {init: init, 
+                  and: and, 
+                  render: render}
+      }();
+
+      lastfm.init().and().render();        
+
+    });
+
+   </script>
+</body>
+</html>
