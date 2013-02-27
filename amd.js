@@ -86,7 +86,9 @@
 
                    } else {
 
-                      loadScript({i: i, d: d}, filepath + filePrefix + d + '.js', function( obj ){
+                      loadScript({i: i, d: d}, filepath + filePrefix + d + '.js', function( obj ) {
+
+                          var lazyCall = function() {
 
                              _dependencies[ obj.i ] = APP[ obj.d ]
 
@@ -96,10 +98,23 @@
 
                                callback( _dependencies )
                             }
+                           }; 
 
-                      })
+                           if(definedModules[d].dependencies.length > 0) {
+
+                                   handleDependencies(definedModules[d].dependencies, function(){
+
+                                           lazyCall();
+                                   })
+
+                           } else {
+
+                             lazyCall(); 
+                           }
+
+                      });
                    }
-           }) 
+           });
        };
 
        context["define"] = function(name, dependencies, callback) {
@@ -109,19 +124,23 @@
                    dependencies: dependencies
               };
 
+
               handleDependencies(dependencies, function( d ){
 
                     context[ namespace ][ name ] = callback.apply(this, d)  
               })
        };
 
-
        context["require"] = function(dependencies, callback) {
+           
+              setTimeout(function(){
 
               handleDependencies(dependencies, function( d ){
 
                     callback.apply(this, d)                       
               })
+
+              }, 100);
        };
 
     })( this );
