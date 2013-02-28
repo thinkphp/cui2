@@ -29,18 +29,29 @@ Usage:
     });
 
 
-    define("jsonp",[], function(){
+    define("jsonp", [], function(){
 
                   return {c: 7, d: 8 }
     });
 
-    define("yql",[], function(){
+    define("yql", [], function(){
 
                   return {e: 100, f: 200 }
     });
 
 
-    require(["core","dom","event","jsonp"], function(core, dom, event, jsonp, yql){
+    define("router", [], function(){
+
+          return {get: function(){}, run: function(){}} 
+    });
+
+    require(["core","dom","event","jsonp", "router"], function(core, dom, event, jsonp, yql, app){
+
+             app.get("search/:what", function( data ){
+                     console.log( data )
+             })
+
+             app.run();
 
              //core object is available and ready to use
              console.log(core)
