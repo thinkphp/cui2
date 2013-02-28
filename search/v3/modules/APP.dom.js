@@ -193,6 +193,11 @@ HTMLElement.prototype.css = function( content ) {
             dom.css(this, content)
 };
 
+HTMLElement.prototype.attr = function( a, v ) {
+
+            dom.attr(this, a, v )
+};
+
 Function.prototype.binding = function() {
 
          var args = Array.prototype.slice.call(arguments),

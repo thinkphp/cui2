@@ -25,7 +25,7 @@
 <script type="text/javascript">
 
 
-require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app){
+require(["cui","dom","event","jsonp","router"], function(cui, dom, evt, $, app){
 
      //show me love to the module pattern
      var googlesearch = function(){
@@ -45,15 +45,18 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app
 
           if(f && resultscontainer && send && q) {
 
-                  event.bind(dom.select("#googleform"),"submit", googlesearch.get)
+                  dom.select("#googleform").Submit(function( evt ){
+
+                              googlesearch.get( evt )
+                  });
           }
       }
 
       function get( e ) {
 
-          event.stopPropagation( e )
+          evt.stopPropagation( e )
 
-          dom.attr(dom.select("#send"),'value','Loading...')
+          send.attr('value', 'Loading...')
 
           var searchterm = q.value;
 
@@ -62,10 +65,8 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app
 
       function incoming(o) {
 
-              //for debug
-              if(window.console) { 
-                 console.log(o);
-              }
+              //for debugger
+              if(window.console) { console.log(o); }
 
               dom.attr(dom.select('#send'), 'value','Go!')            
 
@@ -85,7 +86,7 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app
                       '</div>';
               }
 
-              dom.html(dom.select("#results"), out )
+              resultscontainer.html( out )
 
               if(undefined !== resultscontainer.getElementsByTagName("a")[0]) {
 
@@ -123,9 +124,9 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app
           //For debugging
           if(window.console) console.log(data)
 
-          dom.attr(q, "value", data.val);
+          q.attr('value', data.val);
 
-          dom.attr(dom.select("#send"),'value','Loading...')
+          send.attr('value','Loading...')
 
           var searchterm = data.val;
 
@@ -142,7 +143,7 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app
 
                     this.incoming( data )
 
-          }.binding(googlesearch))
+          }.binding( googlesearch ))
     })
 
     app.run()
@@ -151,7 +152,7 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, event, $, app
 
         var _val = location.hash.split("/")[2]
 
-        dom.attr(q, "value", _val);
+        q.attr('value', _val);
 
         f({val: _val}) 
     }
