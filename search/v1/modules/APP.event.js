@@ -4,7 +4,7 @@
  */
 
 
-var event = function(){
+var _event = function(){
 
          return {  
 
@@ -83,10 +83,16 @@ var event = function(){
 
 HTMLElement.prototype.Click = function( fn ) {
 
-       event.bind(this, 'click', fn, false)
-} 
+       _event.bind(this, 'click', fn, false)
+};
 
-    define("event", [], function(){
+HTMLElement.prototype.Submit = function( fn ) {
 
-                  return event
-    });
+       _event.bind(this, 'submit', fn, false)
+} ;
+
+
+define("event", [], function(){
+
+              return _event;
+});
