@@ -1,5 +1,6 @@
+define("dom", [], function(){
 
-dom = {
+return dom = {
 
     selectAll: function( selector ) {
  
@@ -208,9 +209,5 @@ Function.prototype.binding = function() {
          } 
 };
 
-
-    define("dom", [], function(){
-
-                   return dom
-    });
+});//end define dom
 

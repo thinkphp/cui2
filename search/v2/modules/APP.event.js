@@ -4,7 +4,7 @@
  */
 
 
-event = function(){
+var event = function(){
 
          return {  
 

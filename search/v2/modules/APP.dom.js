@@ -1,5 +1,4 @@
-
-dom = {
+var dom = {
 
     selectAll: function( selector ) {
  
@@ -208,9 +207,9 @@ Function.prototype.binding = function() {
          } 
 };
 
+define("dom", [], function(){
 
-    define("dom", [], function(){
+      return dom; 
 
-                   return dom
-    });
+});
 
