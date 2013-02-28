@@ -11,5 +11,6 @@ var template = function(){
 }();
 
 define("template",[], function(){
+
       return template;
 })

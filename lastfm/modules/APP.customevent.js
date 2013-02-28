@@ -80,5 +80,6 @@ var CustomEvent = function() {
 }();
 
 define("customevent",[], function(){
+
       return CustomEvent;
 })

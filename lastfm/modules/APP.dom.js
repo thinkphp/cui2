@@ -1,5 +1,4 @@
-
-dom = {
+var dom = {
 
     selectAll: function( selector ) {
  
@@ -194,6 +193,11 @@ HTMLElement.prototype.css = function( content ) {
             dom.css(this, content)
 };
 
+HTMLElement.prototype.attr = function( a, v ) {
+
+            dom.attr(this, a, v )
+};
+
 Function.prototype.binding = function() {
 
          var args = Array.prototype.slice.call(arguments),
@@ -208,9 +212,9 @@ Function.prototype.binding = function() {
          } 
 };
 
+define("dom", [], function(){
 
-    define("dom", [], function(){
+      return dom; 
 
-                   return dom
-    });
+});
 
