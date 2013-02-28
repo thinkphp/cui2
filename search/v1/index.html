@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <title>Google Search based on cui.jsonp</title>
+   <link rel="stylesheet" href="search.css" type="text/css">
+</head>
+<body class="yui-skin-sam">
+<div id="doc" class="yui-t7">
+   <div id="hd" role="banner"><h1>Search based on CUI2 AMD Style</h1></div>
+   <div id="bd" role="main">
+	<div class="yui-g">
+
+           <form action="http://www.google.com/search" id="googleform">
+             <div>
+                <label for="q">Google Search:</label>
+                <input class="gsc-input" type="text" id="q" name="q" placeholder="" required/> 
+                <input class="gsc-search-button" type="submit" id="send" name="send" value="Go!"/> 
+             </div> 
+           </form>
+	</div>
+           <div id="results"></div>
+	</div>
+   <div id="ft" role="contentinfo"><p>&copy; 2013 Some Rights Reserved | created by  @<a href="http://twitter.com/thinkphp">thinkphp</a> | Download on <a href="http://github.com/thinkphp/cui2">GitHub </a></p></div>
+</div>
+<script type="text/javascript" src="../../amd.js"></script>
+<script type="text/javascript">
+
+
+
+require(["cui","dom","event","jsonp"], function(cui, dom, event, $){
+
+
+     //show me love to the module pattern
+     var googlesearch = function(){
+
+      var f, 
+          resultscontainer, 
+          send, 
+          q, 
+          appid = 'B59F3913692A46D75ED39BA8F472DF267E24B611';
+
+      function init() {
+
+          f    = dom.select('#googleform'),
+          send = dom.select('#send'),
+          q    = dom.select('#q'),
+          resultscontainer = dom.select('#results');
+
+          if(f && resultscontainer && send && q) {
+
+                  event.bind(dom.select("#googleform"),"submit", googlesearch.get)
+          }
+      }
+
+      function get( e ) {
+
+          event.stopPropagation( e )
+
+          dom.attr(dom.select("#send"),'value','Loading...')
+
+          var searchterm = q.value;
+
+          var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
+                    '&userip=&'+
+                    'hl=en&'+
+                    'v=1.0&'+
+                    'start=0&'+
+                    'rsz=8'+
+                    '&q='+searchterm+
+                    '&callback=?';
+
+          $.jsonp(url, function( data ){
+
+                    this.incoming( data )
+
+          }.binding(googlesearch))
+      }
+
+      function incoming(o) {
+
+              //for debug
+              if(window.console) { 
+                 console.log(o);
+              }
+
+              dom.attr(dom.select('#send'), 'value','Go!')            
+
+              var out = '';
+
+              if(o.responseStatus == 200) {
+
+                out = '<h2>Results</h2>' + 
+                          '<div>' + 
+                          renderWeb(o) +  
+                          '</div>'; 
+
+              } else {
+
+                out = '<div class="error"><h2>Error</h2>' +
+                      '<p>'+ o.responseDetails +'</p>' +
+                      '</div>';
+              }
+
+              dom.html(dom.select("#results"), out )
+
+              if(undefined !== resultscontainer.getElementsByTagName("a")[0]) {
+
+                 resultscontainer.getElementsByTagName("a")[0].focus();
+              } 
+      }
+
+      function renderWeb(o) {
+
+             var out = '';
+             var results = o.responseData.results;
+             if(undefined !== results) {
+                var all = results.length;
+                out += '<h3>Web Results</h3><ol>';
+                   for(var i=0;i<all;i++) {
+                       out += '<li><h4><a href="' + results[i].url + '">' + results[i].title + '</a></h4>' + 
+                              '<p>' + results[i].content +  '<span>(' + results[i].url + ')</span></p>';
+                   }  
+                out += '</ol>';
+             }  
+         return out;
+      }
+
+      return {init   : init,
+              get    : get,
+              incoming: incoming};
+  }();
+
+  googlesearch.init()
+})
+
+</script>
+</body>
+</html>
