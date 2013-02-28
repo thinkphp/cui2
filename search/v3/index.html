@@ -124,12 +124,19 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, evt, $, app){
           //For debugging
           if(window.console) console.log(data)
 
+          //set attribute value
           q.attr('value', data.val);
 
+          //up-to-date value
+          q.value = data.val;
+
+          //set loading value to the button search
           send.attr('value','Loading...')
 
+          //get the value to search
           var searchterm = data.val;
 
+          //prepare the URL for REST GET request
           var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
                     '&userip=&'+
                     'hl=en&'+
@@ -139,21 +146,28 @@ require(["cui","dom","event","jsonp","router"], function(cui, dom, evt, $, app){
                     '&q='+searchterm+
                     '&callback=?';
 
+          //make a request JSONP
           $.jsonp(url, function( data ){
 
                     this.incoming( data )
 
+          //binding to object googlesearch
           }.binding( googlesearch ))
     })
 
+    //rounter execute
     app.run()
 
+     //if we have hash in location then begin
     if(window.location.hash) {
 
+        //get the search value from location.hash
         var _val = location.hash.split("/")[2]
 
+        //set attribute value to the textfield input
         q.attr('value', _val);
 
+        //call the function with this object
         f({val: _val}) 
     }
 
