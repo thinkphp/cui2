@@ -125,7 +125,7 @@ require(["cui","dom","event","ajax"], function(cui, dom, event, ajaxobj){
 	 * 220 = FORWARD SLASH
 	 * 221 = RIGHT BRACKET
 	 */
-    event.bind(sfield, "keydown", function( e ){
+    sfield.Keydown( function( e ){
 
        if(e.keyCode == '32' || e.keyCode == '188' || e.keyCode == '189' || e.keyCode == '13' || e.keyCode == '190' || e.keyCode == '219' || e.keyCode == '221' || e.keyCode == '191' || e.keyCode == '220') {
 
