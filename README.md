@@ -11,6 +11,8 @@ by removing dependencies where possible.
 Usage:
 ------
 
+```js
+
     define("core", [], function(){
 
                   return {x: 11, y: 33 }
@@ -68,6 +70,8 @@ Usage:
              //yql object is available and ready to use
              console.log(yql)
     });
+
+```
 
 DEMOS
 -----
