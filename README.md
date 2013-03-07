@@ -275,3 +275,7 @@ DEMOS
 -----
 
    * [http://thinkphp.ro/apps/js-hacks/cui2/](http://thinkphp.ro/apps/js-hacks/cui2/)
+
+## License
+
+  MIT
