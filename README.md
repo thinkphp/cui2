@@ -73,8 +73,8 @@ Usage:
 
 ```
 
-Example
--------
+Example#1
+---------
 ```html
 
 Select a programming language <input type="text" id="tags" />
@@ -188,6 +188,85 @@ ready(function(){
        
 })
 
+});
+
+```
+
+Example#3
+--------
+
+```html
+   <div id="bd" role="main">
+
+      <div id="w">
+		<section id="sform">
+			<input type="text" id="s" name="s" class="sfield" placeholder="Enter a search tag..." autocomplete="off">
+		</section>
+		
+		<section id="photos"></section>
+	</div>
+
+	</div>
+```
+
+```js
+require(["cui","dom","event","ajax"], function(cui, dom, event, ajaxobj){
+
+    var sfield = dom.select("#s"),
+        container = dom.select("#photos"),
+        timer;
+
+
+    function instaSearch() {
+
+        dom.addClass(sfield, "loading")
+
+        var q = dom.select("#s").value
+
+        var url = "proxy.php?q=" + q;
+
+        ajaxobj.ajax("GET", url, function( data ){
+ 
+                    //eval JSON received from proxy.php
+                    data = eval("(" + data + ")");
+
+                    //remove the loading
+                    dom.removeClass(sfield, "loading");
+  
+                    //define an empty variable
+                    var output = ''; 
+
+                    //for each object execute
+		        dom.each(data, function(item, i) {
+ 
+                        output += '<div class="p"><a href="'+data[i].src+'" class="fullsize" target="_blank"><img src="full-image.png" alt="fullsize"></a> <a href="'+data[i].url+'" target="_blank"><img src="'+data[i].thumb+'"></a></div>';
+
+                    });
+
+                    //insert the result to the container
+                    container.html( output );
+
+        }) 
+    }
+
+    sfield.Keydown( function( e ){
+
+       if(e.keyCode == '32' || e.keyCode == '188' || e.keyCode == '189' || e.keyCode == '13' || e.keyCode == '190' || e.keyCode == '219' || e.keyCode == '221' || e.keyCode == '191' || e.keyCode == '220') {
+
+         e.preventDefault();
+
+       } else {
+
+    		 clearTimeout(timer);
+
+			timer = setTimeout(function() {
+
+     		             instaSearch();
+
+			}, 900);   
+       }
+
+    });
 });
 
 ```
