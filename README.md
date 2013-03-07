@@ -73,6 +73,125 @@ Usage:
 
 ```
 
+Example
+-------
+```html
+
+Select a programming language <input type="text" id="tags" />
+
+```
+
+```js
+require(["ready", "dom", "autosuggest"], function(app, dom, widget){
+
+var Autosuggest = widget.autosuggest
+
+ var suggestions = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"];
+
+  app.ready(function(){
+   
+      var suggest = Autosuggest(dom.select("#tags"), suggestions)
+  })
+
+});
+```
+
+Example#2
+---------
+
+```html
+<ul id="menu">
+
+<li>
+   <a href="#">Event Delegation List 1</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+<li>
+   <a href="#">Event Delegation List 2</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+<li>
+   <a href="#">Event Delegation List 3</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+</ul>
+
+```
+
+
+```js
+require(["ready","dom","delegate"], function(r, dom, d){
+
+var ready = r.ready, 
+    delegate = d.delegate;
+
+ready(function(){
+
+   delegate(dom.select("#menu"), 'li a', 'click', function( e ){
+
+              var ul = e.target.parentNode.querySelector("ul")
+
+                  if(ul.style.display == "none") {
+
+                     ul.css("display: block") 
+
+                  } else {
+
+                     ul.css("display: none")
+                  }
+
+                  if(window.console) console.log(e.target)
+    }, false);
+       
+})
+
+});
+
+```
+
 DEMOS
 -----
 
